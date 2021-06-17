@@ -1,0 +1,187 @@
+:root{
+    --blanco: #ffffff;
+    --negro: #212121;
+    --navegacion: #333333;
+    --hover: #EDF0F5
+    --amarillo: #9EF616;
+    --verde: #07F320;
+    --rojo: #ff0000;
+    --rojohover:#cc0000;
+    --grisClaro: #dfe9f3;
+    --fondoheader: #3A5795;
+    --fondotabla: #EDF0F5;
+
+    --fuenteTexto: 'Open Sans', sans-serif;
+    --fuenteTitulos: 'Staatliches', sans-serif;
+}
+
+html{
+    box-sizing: border-box;
+    font-size: 62.5%;
+    /*scroll-snap-type: y mandatory;*/
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+body{
+    font-size: 16px; /* 1rem = 10px */
+    background-image: linear-gradient(to right, var(--grisClaro) 0%, var(--blanco) 100% );
+}
+h1, h2, h3 {
+    font-family: var(--fuenteTitulos);
+    margin: 0px;
+    padding: 1rem;
+}
+p, span{
+    font-family: var(--fuenteTexto);
+}
+.contenedor{
+    max-width: 120rem;
+    margin-top: 0;
+    margin-right: auto;
+    margin-bottom: 0;
+    margin-left: auto;
+    -webkit-box-shadow: 6px 4px 16px 5px rgba(0,0,0,0.5);
+    -moz-box-shadow: 6px 4px 16px 5px rgba(0,0,0,0.5);
+    box-shadow: 6px 4px 16px 5px rgba(0,0,0,0.5);
+    background-color: var(--blanco);
+    padding: 1rem;
+    margin-top: 1rem;
+    border-radius: .5rem;
+}
+.navegacion {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--navegacion);
+}
+@media (min-width: 480px) {
+    .navegacion{
+        flex-direction: row;
+        justify-content: space-evenly;/*evenly o around*/
+    }
+}
+.navegacion a{
+    display: block;
+    color: var(--blanco);
+    text-decoration: none;
+    font-size: 2rem;
+    font-weight: normal;
+    padding: 1rem;
+}
+.navegacion a:hover{
+    background: rgba(0,0,0,0);
+    color: #3a7999;
+    box-shadow: inset 0 0 0 3px #3a7999;
+}
+header{
+    height: 36rem;
+    background-color: var(--fondoheader);
+    text-align: center;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+header img{
+    height: 20rem;
+    width: 20rem;
+    border-radius: 50%;
+}
+.informacion{
+    background-color:  #637BAD;
+    height: 10rem;
+}
+.informacion__dato{
+    display: flex;
+    justify-content: space-around;/*evenly o around*/
+}
+.citas{
+    background-color:  #ADB9D3;
+}
+.tablaCitaDisponible{
+    margin-top: 0rem;
+    width: 100%;
+    font-size: 3rem;
+}
+.tablaCitaDisponible caption{
+    font-size: 16px;
+    text-align: left;
+}
+.tablaCitaDisponible thead{
+    background-color: var(--negro);
+    color: var(--blanco);
+}
+table th{
+    width: 33%;
+}
+table td{
+    text-align: center;
+    background-color: var(--fondotabla);
+}
+.alerta{
+    color: var(--negro);
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 1rem;
+    margin: 0rem 40rem -4rem;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.alerta-erronea{
+    background-color: var(--rojo);
+
+}
+.alerta-exitosa{
+    background-color: var(--verde);
+}
+.botonEliminar{
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: .5rem 1rem;
+    border-radius: 5px;
+    color: var(--negro);
+    font-size: 2rem;
+    background-color: var(--rojo);
+}
+.botonEliminar:hover{
+    background-color: var(--rojohover);
+    transition: 0.5s;
+    cursor: pointer;
+}
+.boton{
+    background-color: var(--verde);
+    color: var(--blanco);
+    padding: 1rem 3rem;
+    font-size: 2rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: .5rem;
+    width: 70%;
+    text-align: center;
+}
+.formulariologin{
+    background-color: var(--blanco);
+    width: 60%;
+    margin: 0 auto;
+    padding: 2rem;
+    border-radius: 1rem;
+    text-align: center;
+}
+@media (min-width: 480px) {
+    .formulariologin{
+        width: 60rem;
+    }
+}
+.formulariologin fieldset{
+    border-radius: 4rem;
+}
+.formulariologin legend{
+    display: contents;
+    font-size: 2rem;
+    font-weight: bolder;
+    text-transform: uppercase;
+    color: var(--negro);
+    text-align: center;
+}
