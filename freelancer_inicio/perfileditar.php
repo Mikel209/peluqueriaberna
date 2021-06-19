@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     if (!$fecha_nac) {
         $errores['fecha_nac'] = 'Debes agregar una fecha de nacimiento';
-    }elseif($fecha_nac > "2015-1-1" || $fecha_nac < "1950-1-1"){
+    } elseif ($fecha_nac > "2015-1-1" || $fecha_nac < "1950-1-1") {
         $errores[] = "La fecha de nacimiento no tiene valores lógicos";
     }
     if (!$email) {
@@ -80,10 +80,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $resultado = mysqli_query($db, $query);
 
-        if($resultado){
+        if ($resultado) {
             header('Location: /perfil.php?resultado=2');
         }
-
     }
 }
 
@@ -114,36 +113,64 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <a href="cerrar-sesion.php">Cerrar sesión</a>
         </nav>
         <form method="POST" class="formulariologin" enctype="multipart/form-data">
-        <fieldset>
-            <legend>Actualiza tus datos</legend>
-            <br>
-            <label for="email">E-mail</label>
-            <br>
-            <input type="email" name="email" placeholder="Tu e-mail" id="email"  value="<?php echo $email; ?>" required>
-            <br>
-            <label for="nombre">Nombre</label>
-            <br>
-            <input type="text" name="nombre" placeholder="Tu nombre" id="nombre"  value="<?php echo $nombre; ?>" required>
-            <br>
-            <label for="apellido_p">Apellido 1</label>
-            <br>
-            <input type="text" name="apellido_P" placeholder="Tu primer apellido" id="apellido_p" value="<?php echo $apellido_P; ?>" required>
-            <br>
-            <label for="apellido_m">Apellido 2</label>
-            <br>
-            <input type="text" name="apellido_M" placeholder="Tu segundo apellido" id="apellido_m" value="<?php echo $apellido_M; ?>" required>
-            <br>
-            <label for="tlfn">Teléfono</label>
-            <br>
-            <input type="number" name="tlfn" placeholder="Tu telefono" id="tlfn" value="<?php echo $tlfn; ?>" required>
-            <br>
-            <label for="fecha_nac">Fecha de nacimiento</label>
-            <br>
-            <input type="date" name="fecha_nac" placeholder="Tu fecha de nacimiento" id="fecha_nac" value="<?php echo $fecha_nac; ?>" required>
-            <br>
-            <input type="submit" value="Actualizar" class="boton boton-verde">
-            <a href="perfil.php">Vuelve a tu perfil</a>
-        </fieldset>
-    </form>
+            <fieldset>
+                <legend>Actualiza tus datos</legend>
+                <br>
+                <label for="email">E-mail</label>
+                <br>
+                <input type="email" name="email" placeholder="Tu e-mail" id="email" value="<?php echo $email; ?>" required>
+                <br>
+                <label for="nombre">Nombre</label>
+                <br>
+                <input type="text" name="nombre" placeholder="Tu nombre" id="nombre" value="<?php echo $nombre; ?>" required>
+                <br>
+                <label for="apellido_p">Apellido 1</label>
+                <br>
+                <input type="text" name="apellido_P" placeholder="Tu primer apellido" id="apellido_p" value="<?php echo $apellido_P; ?>" required>
+                <br>
+                <label for="apellido_m">Apellido 2</label>
+                <br>
+                <input type="text" name="apellido_M" placeholder="Tu segundo apellido" id="apellido_m" value="<?php echo $apellido_M; ?>" required>
+                <br>
+                <label for="tlfn">Teléfono</label>
+                <br>
+                <input type="number" name="tlfn" placeholder="Tu telefono" id="tlfn" value="<?php echo $tlfn; ?>" required>
+                <br>
+                <label for="fecha_nac">Fecha de nacimiento</label>
+                <br>
+                <input type="date" name="fecha_nac" placeholder="Tu fecha de nacimiento" id="fecha_nac" value="<?php echo $fecha_nac; ?>" required>
+                <br>
+                <br>
+                <input type="submit" value="Actualizar" class="boton boton-verde">
+                <a href="perfil.php">Vuelve a tu perfil</a>
+            </fieldset>
+        </form>
+
+        <?php foreach ($errores as $error) : ?>
+            <div class="alerta alerta-erronea">
+                <?php echo $error; ?>
+            </div>
+        <?php endforeach; ?>
+        <form method="POST" action="perfileditarcontra.php" class="formulariologin" enctype="multipart/form-data">
+            <fieldset>
+                <legend>Actualiza tu contraseña</legend>
+                <br>
+                <label for="password1">Contraseña antigua</label>
+                <br>
+                <input type="password" name="pass1" placeholder="Tu password" id="password1" required>
+                <br>
+                <label for="password2">Contraseña nueva</label>
+                <br>
+                <input type="password" name="pass2" placeholder="Tu password" id="password2" required>
+                <br>
+                <label for="password3">Repite contraseña nueva</label>
+                <br>
+                <input type="password" name="pass3" placeholder="Tu password" id="password3" required>
+                <br>
+                <br>
+                <input type="hidden" name="id" value="<?php echo $id; ?>">
+                <input type="submit" value="Actualiza contraseña" class="boton boton-verde">
+            </fieldset>
+        </form>
     </main>
 </body>

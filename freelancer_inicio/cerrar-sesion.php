@@ -4,4 +4,6 @@ session_start();
 
 $_SESSION = [];
 
-header('Location: /calendario.php');
+header('Location: ../calendario.php');
+
+?>

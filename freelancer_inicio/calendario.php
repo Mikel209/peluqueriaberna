@@ -1,8 +1,7 @@
 <?php
 include 'includes/templates/header.php';
+include 'includes/templates/funciones.php';
 include 'includes/config/database.php';
-require 'includes/templates/funciones.php';
-
 
 //Importar conexion
 $db = conectarDB();
@@ -36,9 +35,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' ){
                 session_start();
 
                 $_SESSION['usuario'] = $usuario['email'];
-                $_SESSION['login'] = true; 
+                $_SESSION['login'] = true;
 
-                header('Location: /calendario.php');
+                if($_SESSION['usuario'] === 'admin@admin.com'){
+                    header('Location: /admin/index.php');
+                }else{
+                    header('Location: /calendario.php');
+                }
+
+                
             }else{
                 $errores[] = "El password es incorrecto";
             }

@@ -27,17 +27,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$email) {
         $errores[] = "El email es obligatorio o no es valido";
     }
-    $query = "SELECT * FROM usuarios WHERE email = '${email}'";
+    $query = "SELECT * FROM clientes WHERE email = '${email}'";
     $resultado2 = mysqli_query($db, $query);
-    echo $resultado2->num_rows;
-    if($resultado2->num_rows){
+    if ($resultado2->num_rows) {
         $errores[] = "El email está en uso";
     }
     if (!$password || !$password2) {
         $errores[] = "El password es obligatorio";
     }
+    $longitud = strlen($password);
+    $size = 8;
     if ($password != $password2) {
         $errores[] = "Las contraseñas no coinciden";
+    } else if ( $longitud <= $size ) {
+        $errores[] = "La longitud de la contraseña debe ser mayor a 8";
     }
     if (!$nombre) {
         $errores[] = "El nombre es obligatorio";
@@ -50,15 +53,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     if (!$tlfn) {
         $errores[] = "El telefono es obligatorio";
-    }elseif(strlen($tlfn) != 9){
-        $errores[] = "El número de telefono no tiene nueve números ";
+    } else if (strlen($tlfn) != 9) {
+        $errores[] = "El número de telefono no tiene nueve números";
     }
     if (!$fecha_nac) {
         $errores[] = "La fecha de nacimiento es obligatorio";
-    }elseif($fecha_nac > "2015-1-1" || $fecha_nac < "1950-1-1"){
+    } else if ($fecha_nac > "2015-1-1" || $fecha_nac < "1950-1-1") {
         $errores[] = "La fecha de nacimiento no tiene valores lógicos";
     }
-    
+
     $nombre = ucfirst($nombre);
     $apellido_p = ucfirst($apellido_p);
     $apellido_m = ucfirst($apellido_m);
@@ -67,14 +70,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errores)) {
         //insertar en la bbdd
         $query = " INSERT INTO clientes (nombre, apellido_P, apellido_M, tlfn, fecha_nac, email, password) 
-        VALUES ('${nombre}','${apellido_p}','${apellido_m}','$tlfn','$fecha_nac', '$email', '${passwordHash}')";
+        VALUES ('${nombre}', '${apellido_p}', '${apellido_m}', '${tlfn}','${fecha_nac}', '${email}', '${passwordHash}')";
         //echo query
         $resultado = mysqli_query($db, $query);
 
-        if($resultado){
+        if ($resultado) {
             header('Location: /calendario.php');
         }
-
     }
 }
 
@@ -92,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <br>
             <label for="email">E-mail</label>
             <br>
-            <input type="email" name="email" placeholder="Tu e-mail" id="email"  value="<?php echo $email; ?>" required>
+            <input type="email" name="email" placeholder="Tu e-mail" id="email" value="<?php echo $email; ?>" required>
             <br>
             <label for="password">Password</label>
             <br>
@@ -104,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <br>
             <label for="nombre">Nombre</label>
             <br>
-            <input type="text" name="nombre" placeholder="Tu nombre" id="nombre"  value="<?php echo $nombre; ?>" required>
+            <input type="text" name="nombre" placeholder="Tu nombre" id="nombre" value="<?php echo $nombre; ?>" required>
             <br>
             <label for="apellido_p">Apellido 1</label>
             <br>

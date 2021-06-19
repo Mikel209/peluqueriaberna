@@ -1,4 +1,6 @@
-<?php include 'includes/templates/header.php'; ?>
+<?php include 'includes/templates/header.php'; 
+include 'sendEmail.php';
+?>
 
     <main class="contenedor sombra">
         <h1 class="letracontacta">Contacta con nosotros</h1>
@@ -18,67 +20,34 @@
                     <span class="letranegrita">Creador:</span> miguelperfer98@gmail.com
                 </p>
             </div>
+            <?php echo $alert; ?>
             <div class="contacta__formulario">
-                <h4 class="sent-notification"></h4>
-                <form id="myForm" class="formulario">
+                <form method="POST" action="" class="formulario">
                     <div class="campo">
                         <label class="campo__label" for="nombre">Nombre</label>
-                        <input class="campo__field" type="text" placeholder="Tu nombre" id="nombre">
+                        <input class="campo__field" type="text" placeholder="Tu nombre" name="nombre" id="nombre">
                     </div>
                     <div class="campo">
                         <label class="campo__label" for="email">E-mail</label>
-                        <input class="campo__field" type="text" placeholder="Tu e-mail" id="email">
-                    </div>
-                    <div class="campo">
-                        <label class="campo__label" for="subject">Asunto</label>
-                        <input class="campo__field" type="text" placeholder="Asunto" id="subject">
+                        <input class="campo__field" type="text" placeholder="Tu e-mail" name="email" id="email">
                     </div>
                     <div class="campo">
                         <label class="campo__label" for="mensaje">Mensaje</label>
-                        <textarea class="campo__field campo__field--textarea" id="mensaje"></textarea>
+                        <textarea class="campo__field campo__field--textarea" id="mensaje" name="mensaje"></textarea>
                     </div>
                     <div class="campo">
-                        <button type="button" onclick="sendEmail()" value="Enviar" class="boton campo__centrar">Enviar</button>
+                        <input type="submit" name="submit" value="Enviar" class="boton campo__centrar">
                     </div>
                 </form>
             </div>
         </div>
     </main>
-    <script src="hhtps://code.jquery.com/jquery-3.4.1.min.js"></script>
+
     <script type="text/javascript">
-        function sendEmail(){
-            var nombre = $("#nombre");
-            var email = $("#email");
-            var subject = $("#subject");
-            var mensaje = $("#mensaje");
-
-            if(isNotEmpty(name) && isNotEmpty(email) && isNotEmpty(subject) && isNotEmpty(mensaje)){
-                $.ajax({
-                    url: 'sendEmail.php',
-                    method: 'POST',
-                    dataType:'json',
-                    data:{
-                        name: name.val(),
-                        email: email.val(),
-                        subject: subject.val(),
-                        mensaje: mensaje.val(),
-                    }, success: function(response){
-                        $('#myForm')[0].reset();
-                        $('.sent-notification').text("Message sent successfully");
-                    }
-
-                });
-            }
-        }
-        function isNotEmpty(caller){
-            if(caller.val()==""){
-                caller.css('border','1px solid red');
-                return false;
-            }else{
-                caller.css('border','');
-                return false;
-            }
-        }
+    if(window.history.replaceState){
+        window.history.replaceState(null, null, window.location.href);
+    }
+        
     </script>
 
 <?php include 'includes/templates/footer.php'; ?>

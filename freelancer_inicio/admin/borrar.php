@@ -13,9 +13,10 @@ if (!isset($_SESSION)) {
 
 $auth = $_SESSION['login'] ?? false;
 $auth = estaAutenticado();
-
-if(!$auth){
-    header('Location: /login.php');
+$esAdmin = esAdmin($db);
+echo $esAdmin;
+if(!$auth || $esAdmin === 0){
+    header('Location: /calendario.php');
 }
 
 //Escribir query

@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peluquería Berna Díaz</title>
+    <title>Peluquería BernaDíaz</title>
     <link rel="preload" href="../../css/normalize.css" as="style">
     <link rel="stylesheet" href="../../css/normalize.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -30,14 +30,14 @@
 
     <div class="bg-nav">
         <nav class="navegacion contenedor">
-            <a href="index.php">Inicio</a>
-            <a href="calendario.php">Calendario</a>
-            <a href="fotos.php">Fotos</a>
-            <a href="productos.php">Productos</a>
-            <a href="contacto.php">Contacto</a>
+            <a href="../index.php">Inicio</a>
+            <a href="../calendario.php">Calendario</a>
+            <a href="../fotos.php">Fotos</a>
+            <a href="../productos.php">Productos</a>
+            <a href="../contacto.php">Contacto</a>
             <?php if($auth): ?>
                 <a href="perfil.php" class="botonperfil" style="background-color: #39a275;">Perfil</a>
-                <a href="cerrar-sesion.php" style="background-color: #194a8d;">Cerrar Sesión</a>
+                <a href="../cerrar-sesion.php" style="background-color: #194a8d;">Cerrar Sesión</a>
             <?php endif; ?>
         </nav>
     </div>

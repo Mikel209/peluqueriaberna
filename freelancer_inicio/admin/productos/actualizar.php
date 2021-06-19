@@ -3,10 +3,13 @@ include '../../includes/config/database.php';
 include '../../includes/templates/header.php';
 date_default_timezone_set('America/Argentina/Buenos_Aires');
 include '../../includes/templates/funciones.php';
+//guardamos nuestra conexion en una variable
+$db = conectarDB();
 $auth = estaAutenticado();
-
-if (!$auth) {
-    header('Location: /login.php');
+$esAdmin = esAdmin($db);
+echo $esAdmin;
+if(!$auth || $esAdmin === 0){
+    header('Location: /calendario.php');
 }
 
 
@@ -19,8 +22,7 @@ if (!$id) {
 }
 
 
-//guardamos nuestra conexion en una variable
-$db = conectarDB();
+
 
 //obtener los datos
 $consulta = "SELECT * FROM productos WHERE id = ${id}";

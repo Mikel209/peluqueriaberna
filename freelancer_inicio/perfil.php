@@ -82,6 +82,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <p class="alerta alerta-exitosa">Cita anulada correctamente</p>
                 <?php elseif (intval($resultado) === 2) : ?>
                     <p class="alerta alerta-exitosa">Perfil actualizado correctamente</p>
+                <?php elseif (intval($resultado) === 3) : ?>
+                    <p class="alerta alerta-exitosa">Contraseña actualizado correctamente</p>
                 <?php endif; ?>
                 <thead>
                     <tr>

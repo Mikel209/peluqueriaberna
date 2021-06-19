@@ -123,14 +123,14 @@ table td{
     font-weight: bold;
     text-transform: uppercase;
     padding: 1rem;
-    margin: 0rem 40rem -4rem;
+    margin: 0rem 30rem;
     border-radius: 5px;
     text-align: center;
 }
 
 .alerta-erronea{
     background-color: var(--rojo);
-
+    margin-bottom: 1rem;
 }
 .alerta-exitosa{
     background-color: var(--verde);

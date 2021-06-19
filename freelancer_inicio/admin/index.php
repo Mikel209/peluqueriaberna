@@ -5,16 +5,18 @@ date_default_timezone_set('CET');
 $fechi = date("Y-m-d"); 
 $hori = date("H:i:s");
 
-$auth = estaAutenticado();
+//Importar conexion
+$db = conectarDB();
 
-if(!$auth){
-    header('Location: /login.php');
+$auth = estaAutenticado();
+$esAdmin = esAdmin($db);
+echo $esAdmin;
+if(!$auth || $esAdmin === 0){
+    header('Location: /calendario.php');
 }
 
 
 
-//Importar conexion
-$db = conectarDB();
 //Escribir query
 $query = "SELECT * FROM productos";
 //Consultar DB

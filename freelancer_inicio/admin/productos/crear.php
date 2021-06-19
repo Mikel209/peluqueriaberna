@@ -3,16 +3,18 @@
 include '../../includes/config/database.php';
 include '../../includes/templates/header.php';
 include '../../includes/templates/funciones.php';
-$auth = estaAutenticado();
-
-if(!$auth){
-    header('Location: /login.php');
-}
-
-date_default_timezone_set('America/Argentina/Buenos_Aires');
 
 //guardamos nuestra conexion en una variable
 $db = conectarDB();
+
+$auth = estaAutenticado();
+$esAdmin = esAdmin($db);
+echo $esAdmin;
+if(!$auth || $esAdmin === 0){
+    header('Location: /calendario.php');
+}
+
+date_default_timezone_set('America/Argentina/Buenos_Aires');
 
 // Mensajes de errores
 $errores = [];

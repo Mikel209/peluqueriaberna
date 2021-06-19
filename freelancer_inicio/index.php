@@ -1,9 +1,5 @@
 <?php 
 
-require 'includes/config/database.php';
-
-conectarDB();
-
 include 'includes/templates/header.php'; 
 
 
