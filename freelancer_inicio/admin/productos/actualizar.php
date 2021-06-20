@@ -70,9 +70,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             mkdir($carpetaImagenes);
         }
 
-
-
-        if (!$imagen) {
+        echo "--------------";  
+        echo $imagen;
+        echo "--------------"; 
+        if ($imagen) {
+            echo "hola";
             //eliminar la imagen previa
             unlink($carpetaImagenes . $productos['imagen']);
             //generar nombre unico
@@ -80,6 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             //subir imagen
             move_uploaded_file($imagen['tmp_name'], "{$carpetaImagenes}{$nombreImagen}");
         } else {
+            echo "adios";
             $nombreImagen = $productos['imagen'];
         }
 

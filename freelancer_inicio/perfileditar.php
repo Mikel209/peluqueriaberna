@@ -39,7 +39,7 @@ $fecha_nac = $row['fecha_nac'];
 $email = $row['email'];
 
 // Evaluamos si viene data por post
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$_REQUEST['actualizacontra']) {
     $nombre = mysqli_real_escape_string($db, $_POST['nombre']);
     $apellido_P = mysqli_real_escape_string($db, $_POST['apellido_P']);
     $apellido_M = mysqli_real_escape_string($db, $_POST['apellido_M']);
@@ -84,8 +84,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header('Location: /perfil.php?resultado=2');
         }
     }
-}
+} else if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_REQUEST['actualizacontra']) {
+    $pass1 = $_POST['pass1'];
+    $pass2 = $_POST['pass2'];
+    $pass3 = $_POST['pass3'];
 
+    if (!$pass1 || !$pass2 || !$pass3) {
+        $errores[] = "El password es obligatorio";
+    }
+
+    $query = "SELECT * FROM clientes WHERE id = $id";
+    $resultado2 = mysqli_query($db, $query);
+    if ($resultado2->num_rows) {
+        $usuario = mysqli_fetch_assoc($resultado2);
+        //Verificar password
+        $autho =  password_verify($pass1, $usuario['password']);
+
+        if (!$autho) {
+            $errores[] = "El password no coincide";
+        }
+    }
+    $longitud = strlen($pass2);
+    $size = 8;
+    if ($pass2 != $pass3) {
+        $errores[] = "Las contraseñas no coinciden";
+    } else if ($longitud <= $size) {
+        $errores[] = "La longitud de la contraseña debe ser mayor a 8";
+    }
+    if (empty($errores)) {
+        
+        $passwordHash = password_hash($pass2, PASSWORD_BCRYPT);
+        $query = "UPDATE clientes SET password = '${passwordHash}' WHERE id = ${id}";
+        //echo query
+
+        $resultado3 = mysqli_query($db, $query);
+
+        if ($resultado3) {
+            header('Location: /perfil.php?resultado=3');
+        }
+    }
+}
 ?>
 
 
@@ -151,7 +189,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <?php echo $error; ?>
             </div>
         <?php endforeach; ?>
-        <form method="POST" action="perfileditarcontra.php" class="formulariologin" enctype="multipart/form-data">
+        <form method="POST" class="formulariologin" enctype="multipart/form-data">
             <fieldset>
                 <legend>Actualiza tu contraseña</legend>
                 <br>
@@ -168,8 +206,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="password" name="pass3" placeholder="Tu password" id="password3" required>
                 <br>
                 <br>
-                <input type="hidden" name="id" value="<?php echo $id; ?>">
-                <input type="submit" value="Actualiza contraseña" class="boton boton-verde">
+                <input type="submit" name="actualizacontra" value="Actualiza contraseña" class="boton boton-verde">
             </fieldset>
         </form>
     </main>

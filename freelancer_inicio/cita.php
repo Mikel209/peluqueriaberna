@@ -22,12 +22,14 @@ $errores = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $dia = ($_GET['dia']);
     $hora = ($_POST['hora']);
-    $servicio = ($_POST['servicio']);
+    $checkBox = implode(',', $_POST['servicio']);
+
+    var_dump($checkBox);
 
     if (!$hora) {
         $errores[] = "La hora es obligatorio";
     }
-    if (!$servicio) {
+    if (!$checkBox) {
         $errores[] = "El servicio es obligatorio";
     }
 
@@ -38,8 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $usuario = mysqli_fetch_assoc($resultado);
     $idusuario = $usuario['id'];
 
-    if ($dia && $hora && $servicio && empty($errores)) {
-        $query = "INSERT INTO citas (servicio, fecha, hora, clienteID) VALUES ('${servicio}', '${dia}', '${hora}', '${idusuario}');";
+    if ($dia && $hora && $checkBox && empty($errores)) {
+        $query = "INSERT INTO citas (servicio, fecha, hora, clienteID) VALUES ('${checkBox}', '${dia}', '${hora}', '${idusuario}');";
         $resultado = mysqli_query($db, $query);
 
         if ($resultado) {
@@ -285,15 +287,15 @@ $cadena_nuevo_formato = date_format($objeto_DateTime, "d/m");
                 <tr>
                     <td colspan="3">Elige el tipo de servicio</td>
                     <td colspan="3">
-                        <input type="radio" id="corte_caballero" name="servicio" value="corte_caballero">
+                        <input type="checkbox" id="corte_caballero" name="servicio[]" value="corte caballero">
                         <label for="corte_caballero">Corte caballero</label><br>
                     </td>
                     <td colspan="2">
-                        <input type="radio" id="degradado" name="servicio" value="degradado">
+                        <input type="checkbox" id="degradado" name="servicio[]" value="degradado">
                         <label for="degradado">Degradado</label><br>
                     </td>
                     <td colspan="2">
-                        <input type="radio" id="barba" name="servicio" value="barba">
+                        <input type="checkbox" id="barba" name="servicio[]" value="barba">
                         <label for="barba">Barba</label>
                     </td>
                     <td colspan="2">
